@@ -2,6 +2,7 @@ package ru.job4j;
 
 public class ExitProgram implements UserAction {
     private final Output out;
+
     public ExitProgram(Output out) {
         this.out = out;
     }
