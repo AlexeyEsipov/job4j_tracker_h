@@ -64,27 +64,15 @@ public class Car {
         if (!(o instanceof Car)) {
             return false;
         }
-
         Car car = (Car) o;
-
-        if (id != car.id) {
-            return false;
-        }
-        if (model != null ? !model.equals(car.model) : car.model != null) {
-            return false;
-        }
-        if (owner != null ? !owner.equals(car.owner) : car.owner != null) {
-            return false;
-        }
-        return created != null ? created.equals(car.created) : car.created == null;
+        return id == car.id
+                && Objects.equals(model, car.model)
+                && Objects.equals(owner, car.owner)
+                && Objects.equals(created, car.created);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (model != null ? model.hashCode() : 0);
-        result = 31 * result + (owner != null ? owner.hashCode() : 0);
-        result = 31 * result + (created != null ? created.hashCode() : 0);
-        return result;
+        return Objects.hash(id, model, owner, created);
     }
 }
