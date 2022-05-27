@@ -6,6 +6,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class HibernateRun {
@@ -22,7 +23,16 @@ public class HibernateRun {
             Item rsl = findById(item.getId(), sf);
             System.out.println(rsl);
             delete(rsl.getId(), sf);
-            System.out.println("-----");
+            Session session = sf.openSession();
+            session.beginTransaction();
+            Item rslTimeOne = new Item("New Name One",
+                    "descriptionOne", new Timestamp(1459510232000L));
+            Item rslTimeTwo = new Item("New Name Two",
+                    "descriptionTwo", new Timestamp(1545901320200L));
+            session.save(rslTimeOne);
+            session.save(rslTimeTwo);
+            session.getTransaction().commit();
+            session.close();
             List<Item> list = findAll(sf);
             for (Item it : list) {
                 System.out.println(it);
